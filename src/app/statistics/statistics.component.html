@@ -1,0 +1,113 @@
+<div class="dashboard-container">
+  <h2>
+    📊 Dashboard de Satisfacción, Recomendación y Facilidad de Compra
+    <button mat-raised-button color="warn" (click)="reiniciarEstadisticas()">
+      Actualizar Estadísticas
+    </button>
+    <button mat-raised-button color="primary" (click)="generarReportePDF()" style="margin-left: 1rem;">
+      Descargar Reporte PDF
+    </button>
+  </h2>
+
+  <div *ngIf="loading" class="loading-spinner">
+    <mat-spinner color="primary"></mat-spinner>
+    <p style="margin-top: 1rem; color: #4b5563;">Cargando estadísticas...</p>
+  </div>
+
+  <div *ngIf="!loading" class="charts-container">
+    <!-- Gráfico de Pregunta 1 -->
+    <div class="chart-card">
+      <h4>😊 Satisfacción con el Servicio Taquilla/Paqueteria</h4>
+      <p class="most-voted">Más votado: {{ getMostVotedResponse(stats.satisfaccion.pregunta1) }}</p>
+      <canvas baseChart
+        [data]="pregunta1Data"
+        [options]="barChartOptions"
+        [type]="barChartType">
+      </canvas>
+      <div class="stats-summary">
+        <p>Total respuestas: {{ getTotalResponses(pregunta1Data) }}</p>
+        <p>CSAT: {{ getAverageForChart(pregunta1Data) | number:'1.1-1' }}/5</p>
+      </div>
+    </div>
+
+    <!-- Gráfico de Pregunta 2 -->
+    <div class="chart-card">
+      <h4>🤝 Servicio que ofrece la empresa</h4>
+      <p class="most-voted">Más votado: {{ getMostVotedResponse(stats.satisfaccion.pregunta2) }}</p>
+      <canvas baseChart
+        [data]="pregunta2Data"
+        [options]="barChartOptions"
+        [type]="barChartType">
+      </canvas>
+      <div class="stats-summary">
+        <p>Total respuestas: {{ getTotalResponses(pregunta2Data) }}</p>
+        <p>CSAT: {{ getAverageForChart(pregunta2Data) | number:'1.1-1' }}/5</p>
+      </div>
+    </div>
+
+    <!-- Gráfico de Recomendación -->
+    <div class="chart-card">
+      <h4>💬 ¿Recomendarían nuestro servicio?</h4>
+      <p class="most-voted">Más votado: {{ getMostVotedResponse(stats.recomendacion.respuestas) }}</p>
+      <canvas baseChart
+        [data]="recomendacionData"
+        [options]="barChartOptions"
+        [type]="barChartType">
+      </canvas>
+      <div class="stats-summary">
+        <p>Total respuestas: {{ getTotalResponses(recomendacionData) }}</p>
+        <p>NPS: {{ calculateNPS(stats.recomendacion.respuestas) | number:'1.0-0' }}%</p>
+      </div>
+    </div>
+
+    <!-- Gráfico para Facilidad de Compra -->
+    <div class="chart-card">
+      <h4>🎫 Facilidad de Compra Boletos</h4>
+      <p class="most-voted">Más votado: {{ getMostVotedResponse(stats.facilidadCompra.facilidad) }}</p>
+      <canvas baseChart
+        [data]="facilidadData"
+        [options]="barChartOptions"
+        [type]="barChartType">
+      </canvas>
+      <div class="stats-summary">
+        <p>Total respuestas: {{ getTotalResponses(facilidadData) }}</p>
+        <p>CES: {{ getAverageForFacilityChart(facilidadData) | number:'1.1-1' }}/5</p>
+      </div>
+    </div>
+
+    <!-- Gráfico para Plataformas de Compra -->
+    <div class="chart-card">
+      <h4>🖥️ Plataformas Utilizadas</h4>
+      <p class="most-voted">Más usada: {{ getMostVotedResponse(stats.facilidadCompra.plataforma) }}</p>
+      <canvas baseChart
+        [data]="plataformaData"
+        [options]="barChartOptions"
+        [type]="barChartType">
+      </canvas>
+      <div class="stats-summary">
+        <p>Total respuestas: {{ getTotalResponses(plataformaData) }}</p>
+        <p>Plataformas distintas: {{ stats.facilidadCompra.plataforma.length }}</p>
+      </div>
+    </div>
+
+    <!-- Gráfico de Tendencias -->
+    <div class="chart-card full-width">
+      <h4>📈 Evolución Mensual</h4>
+      <canvas baseChart
+        [data]="tendenciasData"
+        [options]="lineChartOptions"
+        [type]="lineChartType">
+      </canvas>
+    </div>
+
+    <!-- Gráfico de Combinación Facilidad/Plataforma -->
+    <div class="chart-card full-width">
+      <h4>📊 Facilidad por Plataforma</h4>
+      <canvas baseChart
+        [data]="combinacionData"
+        [options]="comboChartOptions"
+        [type]="barChartType">
+      </canvas>
+    </div>
+  </div>
+</div>

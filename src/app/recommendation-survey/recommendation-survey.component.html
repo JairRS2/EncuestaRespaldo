@@ -1,0 +1,42 @@
+<div class="survey-container">
+  <div class="survey-card">
+    <div class="logo-container">
+      <img src="/assets/Logo_ADIC.png" alt="Logo" class="company-logo">
+    </div>
+
+    <h2 class="survey-title">Encuesta de Recomendación</h2>
+    <p class="survey-description">Tú opinión nos ayuda a mejorar!</p>
+
+    <div class="question-container">
+      <label class="question-label">{{ question }}</label>
+      <div class="rating-options-horizontal">
+        <div class="rating-option-horizontal"
+             *ngFor="let option of options; let i = index"
+             [class.option-1]="option.colorValue === 1"
+             [class.option-2]="option.colorValue === 2"
+             [class.option-3]="option.colorValue === 3"
+             [class.option-4]="option.colorValue === 4"
+             [class.option-5]="option.colorValue === 5">
+          <input type="radio"
+                 [id]="'rec-'+i"
+                 name="recommendation"
+                 [value]="option.value"
+                 (change)="onOptionSelect(option.value)"
+                 [checked]="selectedResponse === option.value">
+          <label [for]="'rec-'+i">
+            <img [src]="option.icon" [alt]="option.label" class="emoji-icon">
+            <span class="rating-label">{{ option.label }}</span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+
+    <div *ngIf="isLoading" class="loading-spinner">
+      <mat-spinner diameter="40"></mat-spinner>
+    </div>
+  </div>
+</div>

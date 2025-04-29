@@ -1,0 +1,274 @@
+/* Estilos base y del contenedor principal */
+.survey-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+  background-color: #e3f2fd; /* Fondo azul claro */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.survey-card {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  width: 100%;
+  max-width: 600px;
+}
+
+/* Títulos y descripciones */
+.survey-title {
+  color: #1565c0; /* Azul más intenso */
+  text-align: center;
+  margin-bottom: 8px;
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+.survey-subtitle,
+.survey-description {
+  color: #546e7a;
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 1.1rem; /* Unificando tamaño para subtitle y ajustando description */
+}
+
+.survey-description {
+  font-size: 0.9rem;
+  color: #16252c; /* Sobrescribiendo color específico */
+}
+
+/* Contenedor de preguntas y etiquetas */
+.question-container {
+  margin-bottom: 30px;
+  text-align: center; /* Centra el texto de la pregunta */
+}
+
+.question-container label,
+.question-label { /* Unificando selector para la etiqueta de pregunta */
+  display: block;
+  font-size: 1.1rem;
+  margin-bottom: 20px;
+  color: #37474f;
+  font-weight: 500;
+  text-align: center; /* Asegura que el label esté centrado */
+}
+
+/* Estilos para las opciones de calificación (horizontal) */
+.rating-options-horizontal {
+  display: flex;
+  justify-content: center; /* Centra las opciones horizontalmente */
+  gap: 10px; /* Espacio entre opciones */
+  margin-top: 15px;
+  flex-wrap: wrap; /* Para responsive */
+}
+
+.rating-option-horizontal {
+  flex: 1;
+  text-align: center;
+  border-radius: 10px;
+  padding: 12px 5px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  border: 2px solid transparent;
+}
+
+.rating-option-horizontal input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.rating-option-horizontal label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  height: 100%;
+  font-weight: 600; /* Estilo al seleccionar, movido aquí desde el hover del input */
+}
+
+/* Colores de semaforización para rating */
+.option-1 { background-color: #ffcdd2; border-color: #f86363; } /* Muy difícil */
+.option-2 { background-color: #fcc662f6; border-color: #ff9318; } /* Difícil */
+.option-3 { background-color: #fff9c4; border-color: #f5de10; } /* Regular */
+.option-4 { background-color: #c8e6c9; border-color: #a5d6a7; } /* Fácil */
+.option-5 { background-color: #81c784; border-color: #66bb6a; } /* Muy fácil */
+
+/* Efectos hover para rating */
+.rating-option-horizontal:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Estilos específicos para las opciones de plataforma */
+.platform-options {
+  display: flex; /* Mostrar las opciones en línea horizontalmente */
+  justify-content: center; /* Centra las opciones */
+  gap: 15px; /* Espacio entre las opciones */
+  margin-top: 20px;
+  flex-wrap: wrap; /* Permitir que las opciones pasen a la siguiente línea en pantallas pequeñas */
+}
+
+.platform-option {
+  display: flex;
+}
+
+.platform-option input[type="radio"] {
+  display: none; /* Ocultar el radio button */
+}
+
+.platform-option label {
+  display: flex;
+  align-items: center; /* Alinear verticalmente el icono y el texto */
+  cursor: pointer;
+  padding: 8px 12px; /* Ajustar el padding para más espacio interno */
+  border-radius: 8px;
+  background-color: #f5f9ff;
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+  white-space: nowrap; /* Evitar que el texto se corte */
+}
+
+.platform-option label:hover {
+  background-color: #e1f0ff;
+}
+
+.platform-option input[type="radio"]:checked + label {
+  background-color: #bbdefb;
+  border-color: #64b5f6;
+  font-weight: 500;
+}
+
+.platform-icon {
+  height: 2rem; /* Ajusta el tamaño del icono */
+  width: auto;
+  margin-right: 8px; /* Espacio entre el icono y el texto */
+  color: #1976d2; /* Color del icono */
+}
+
+.platform-option span,
+.platform-label { /* Unificando selector para el texto de la plataforma */
+  font-size: 0.95rem;
+  color: #455a64;
+  display: block; /* Para que .platform-label ocupe su propio espacio */
+  text-align: center; /* Centra el texto debajo del icono */
+  margin-top: 8px; /* Espacio entre el icono y la etiqueta */
+}
+
+/* Estilos para el logo */
+.logo-container {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.company-logo {
+  max-height: 80px; /* Ajusta según el tamaño de tu logo */
+  max-width: 100%;
+  margin: 0 auto;
+  display: block;
+}
+
+/* Mensajes de error y notificaciones */
+.error-message {
+  color: #d32f2f;
+  background-color: #ffebee;
+  padding: 12px;
+  border-radius: 8px;
+  margin: 16px 0;
+  text-align: center;
+  font-weight: 500;
+}
+
+.success-snackbar {
+  background-color: #4CAF50 !important;
+  color: white !important;
+}
+
+.error-snackbar {
+  background-color: #F44336 !important;
+  color: white !important;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .survey-card {
+    padding: 20px;
+  }
+
+  .rating-options-horizontal {
+    gap: 8px;
+  }
+
+  .platform-options {
+    justify-content: center; /* Centrar en pantallas más pequeñas */
+    gap: 10px;
+  }
+
+  .platform-option label {
+    padding: 6px 10px;
+  }
+
+  .platform-icon {
+    height: 1.8rem;
+    margin-right: 6px;
+  }
+
+  .platform-option span,
+  .platform-label {
+    font-size: 0.9rem;
+  }
+
+  .company-logo {
+    max-height: 60px;
+  }
+}
+
+@media (max-width: 480px) {
+  .survey-container {
+    padding: 10px;
+  }
+
+  .survey-title {
+    font-size: 1.5rem;
+  }
+
+  .rating-options-horizontal {
+    gap: 5px;
+  }
+
+  .platform-options {
+    flex-direction: row; /* Mantener en fila, pero permitir wrapping */
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .platform-option label {
+    padding: 8px;
+  }
+
+  .platform-icon {
+    height: 1.6rem;
+    margin-right: 6px;
+  }
+
+  .platform-option span,
+  .platform-label {
+    font-size: 0.85rem;
+  }
+
+  .company-logo {
+    max-height: 50px;
+  }
+}
+.emoji-icon {
+  width: 60px; /* Ajusta el tamaño según necesites */
+  height: 60px; /* Ajusta el tamaño según necesites */
+  vertical-align: middle; /* Alinea verticalmente con el texto si es necesario */
+  margin-right: 5px; /* Agrega un poco de espacio a la derecha del icono */
+}

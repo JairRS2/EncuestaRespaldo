@@ -1,0 +1,43 @@
+<div class="survey-container">
+  <div class="survey-card">
+    <div class="logo-container">
+      <img src="/assets/Logo_ADIC.png" alt="Logo de la empresa" class="company-logo">
+      </div>
+
+    <h2 class="survey-title">Encuesta de Satisfacción</h2>
+    <p class="survey-subtitle">Por favor, califica tu experiencia con nosotros!</p>
+
+    <div class="question-container">
+      <label>{{ question1 }}</label>
+      <div class="rating-options">
+        <div class="rating-option" *ngFor="let level of satisfactionLevels; let i = index">
+          <input type="radio" [id]="'q1-' + i" name="q1" [value]="level.value"
+                 (click)="sendResponse('q1', level.value)" [checked]="responseQ1 === level.value">
+          <label [for]="'q1-' + i">
+            <img [src]="level.icon" [alt]="level.label" class="emoji-icon">
+            <span class="rating-label">{{ level.label }}</span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="question-container">
+      <label>{{ question2 }}</label>
+      <div class="rating-options">
+        <div class="rating-option" *ngFor="let level of satisfactionLevels; let i = index">
+          <input type="radio" [id]="'q2-' + i" name="q2" [value]="level.value"
+                 (click)="sendResponse('q2', level.value)" [checked]="responseQ2 === level.value">
+          <label [for]="'q2-' + i">
+            <img [src]="level.icon" [alt]="level.label" class="emoji-icon">
+            <span class="rating-label">{{ level.label }}</span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+
+  </div>
+</div>

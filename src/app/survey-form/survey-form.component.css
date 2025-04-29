@@ -1,0 +1,246 @@
+/* Estilos CSS para contenedores de emojis más cuadrados en la encuesta de satisfacción */
+.survey-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+  background-color: #e3f2fd;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.survey-card {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  width: 100%;
+  max-width: 768px; /* Max width para tablets */
+}
+
+.logo-container {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.company-logo {
+  max-height: 80px;
+  max-width: 100%;
+  margin: 0 auto;
+  display: block;
+}
+
+.survey-title {
+  color: #1565c0;
+  text-align: center;
+  margin-bottom: 10px;
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+.survey-subtitle {
+  color: #10181b;
+  text-align: center;
+  margin-bottom: 25px;
+  font-size: 1.1rem;
+}
+
+.question-container {
+  margin-bottom: 40px;
+}
+
+.question-container label {
+  display: block;
+  font-size: 1.3rem;
+  margin-bottom: 20px;
+  color: #37474f;
+  font-weight: 500;
+  text-align: center;
+  word-break: break-word;
+  line-height: 1.3;
+}
+
+.rating-options {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.rating-option {
+  flex-basis: 0;
+  flex-grow: 1;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.rating-option input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.rating-option label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 5px; /* Reducimos un poco el padding vertical */
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+  width: 100%;
+  /* Ajuste para hacerlo más cuadrado */
+  height: auto; /* Removemos la altura automática para aplicar una fija o aspect-ratio */
+  min-height: 80px; /* Establecemos una altura mínima */
+}
+
+/* Colores de semaforización */
+.rating-option:nth-child(1) label {
+  background-color: #ffcdd2;
+  border-color: #ef9a9a;
+}
+
+.rating-option:nth-child(2) label {
+  background-color: #fcc662f6; border-color: #ffcdd2;
+}
+
+.rating-option:nth-child(3) label {
+  background-color: #fff9c4;
+  border-color: #fff59d;
+}
+
+.rating-option:nth-child(4) label {
+  background-color: #c8e6c9;
+  border-color: #a5d6a7;
+}
+
+.rating-option:nth-child(5) label {
+  background-color: #81c784;
+  border-color: #66bb6a;
+}
+
+.rating-option label:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.rating-option input[type="radio"]:checked + label {
+  font-weight: 600;
+}
+
+.emoji {
+  font-size: 2.4rem;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.rating-label {
+  font-size: 1rem;
+  color: #455a64;
+  display: block;
+}
+
+.error-message {
+  color: #d32f2f;
+  background-color: #ffebee;
+  padding: 12px;
+  border-radius: 8px;
+  margin: 16px 0;
+  text-align: center;
+  font-weight: 500;
+}
+
+/* Media Queries para Tablets */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .survey-card {
+    padding: 40px;
+  }
+
+  .question-container label {
+    font-size: 1.4rem;
+    margin-bottom: 25px;
+    white-space: normal;
+    word-break: break-word;
+    line-height: 1.4;
+  }
+
+  .rating-options {
+    gap: 15px;
+    justify-content: space-around;
+  }
+
+  .rating-option label {
+    padding: 8px;
+    width: 100px; /* Ancho fijo para tablets */
+    height: 100px; /* Alto fijo para tablets */
+  }
+
+  .emoji {
+    font-size: 2.2rem;
+    margin-bottom: 5px;
+  }
+
+  .rating-label {
+    font-size: 0.9rem;
+  }
+}
+
+/* Media Queries para pantallas más pequeñas (móviles) */
+@media (max-width: 767px) {
+  .question-container label {
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+    word-break: break-word;
+    line-height: 1.3;
+  }
+
+  .rating-option label {
+    min-height: 70px; /* Ajustamos la altura mínima en móviles */
+    padding: 8px 3px;
+  }
+
+  .emoji {
+    font-size: 1.8rem;
+    margin-bottom: 3px;
+  }
+
+  .rating-label {
+    font-size: 0.8rem;
+  }
+}
+
+/* Media Queries para pantallas aún más pequeñas */
+@media (max-width: 480px) {
+  .question-container label {
+    font-size: 1rem;
+    margin-bottom: 12px;
+    word-break: break-word;
+    line-height: 1.3;
+  }
+
+  .rating-option label {
+    min-height: 60px; /* Ajustamos la altura mínima en móviles pequeños */
+    padding: 6px 2px;
+  }
+
+  .emoji {
+    font-size: 1.5rem;
+    margin-bottom: 2px;
+  }
+
+  .rating-label {
+    font-size: 0.7rem;
+  }
+}
+.emoji-icon {
+  width: 60px; /* Ajusta el tamaño según necesites */
+  height: 60px; /* Ajusta el tamaño según necesites */
+  vertical-align: middle; /* Alinea verticalmente con el texto si es necesario */
+  margin-right: 5px; /* Agrega un poco de espacio a la derecha del icono */
+}
