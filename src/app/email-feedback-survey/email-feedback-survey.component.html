@@ -4,8 +4,8 @@
       <img src="/assets/Logo_ADIC.png" alt="Logo" class="company-logo">
     </div>
 
-    <h2 class="survey-title">Encuesta de Satisfacción</h2>
-    <p class="survey-description">Por favor, califica tu experiencia con nosotros!</p>
+    <h2 class="survey-title">Encuesta de Correo Electrónico</h2>
+    <p class="survey-description">Tú opinión nos ayuda a mejorar!</p>
 
     <div class="question-container">
       <label class="question-label">{{ question1 }}</label>
@@ -18,12 +18,12 @@
              [class.option-4]="option.colorValue === 4"
              [class.option-5]="option.colorValue === 5">
           <input type="radio"
-                 [id]="'q1-' + i"
-                 name="q1"
+                 [id]="'email-utility-'+i"
+                 name="email-utility"
                  [value]="option.value"
                  (change)="onOptionSelect1(option.value)"
                  [checked]="selectedResponse1 === option.value">
-          <label [for]="'q1-' + i">
+          <label [for]="'email-utility-'+i">
             <img [src]="option.icon" [alt]="option.label" class="emoji-icon">
             <span class="rating-label">{{ option.label }}</span>
           </label>
@@ -42,12 +42,12 @@
              [class.option-4]="option.colorValue === 4"
              [class.option-5]="option.colorValue === 5">
           <input type="radio"
-                 [id]="'q2-' + i"
-                 name="q2"
+                 [id]="'email-frequency-'+i"
+                 name="email-frequency"
                  [value]="option.value"
                  (change)="onOptionSelect2(option.value)"
                  [checked]="selectedResponse2 === option.value">
-          <label [for]="'q2-' + i">
+          <label [for]="'email-frequency-'+i">
             <img [src]="option.icon" [alt]="option.label" class="emoji-icon">
             <span class="rating-label">{{ option.label }}</span>
           </label>

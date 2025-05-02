@@ -88,13 +88,8 @@
   flex-direction: column;
   align-items: center;
   cursor: pointer;
-  height:100%;
+  height: 100%;
   font-weight: 600; /* Estilo al seleccionar, movido aquí desde el hover del input */
-}
-.rating-option-horizontal  span.rating-label { /* Apuntamos directamente al span dentro del label */
-  font-size: .8rem;
-  font-weight: bold;
-
 }
 
 /* Colores de semaforización para rating */
@@ -110,6 +105,60 @@
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
+/* Estilos específicos para las opciones de plataforma */
+.platform-options {
+  display: flex; /* Mostrar las opciones en línea horizontalmente */
+  justify-content: center; /* Centra las opciones */
+  gap: 15px; /* Espacio entre las opciones */
+  margin-top: 20px;
+  flex-wrap: wrap; /* Permitir que las opciones pasen a la siguiente línea en pantallas pequeñas */
+}
+
+.platform-option {
+  display: flex;
+}
+
+.platform-option input[type="radio"] {
+  display: none; /* Ocultar el radio button */
+}
+
+.platform-option label {
+  display: flex;
+  align-items: center; /* Alinear verticalmente el icono y el texto */
+  cursor: pointer;
+  padding: 8px 12px; /* Ajustar el padding para más espacio interno */
+  border-radius: 8px;
+  background-color: #f5f9ff;
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+  white-space: nowrap; /* Evitar que el texto se corte */
+}
+
+.platform-option label:hover {
+  background-color: #e1f0ff;
+}
+
+.platform-option input[type="radio"]:checked + label {
+  background-color: #bbdefb;
+  border-color: #64b5f6;
+  font-weight: 500;
+}
+
+.platform-icon {
+  height: 2rem; /* Ajusta el tamaño del icono */
+  width: auto;
+  margin-right: 8px; /* Espacio entre el icono y el texto */
+  color: #1976d2; /* Color del icono */
+}
+
+.platform-option span,
+.platform-label { /* Unificando selector para el texto de la plataforma */
+  font-size: 0.95rem;
+  color: #455a64;
+  display: block; /* Para que .platform-label ocupe su propio espacio */
+  text-align: center; /* Centra el texto debajo del icono */
+  margin-top: 8px; /* Espacio entre el icono y la etiqueta */
+}
 
 /* Estilos para el logo */
 .logo-container {

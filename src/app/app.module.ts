@@ -17,14 +17,20 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { RouterModule } from '@angular/router'; // <-- Importa esto
 import { AppRoutingModule } from './app-routing.module';
 import { RecommendationSurveyComponent } from './recommendation-survey/recommendation-survey.component';
-import { PurchaseEaseSurveyComponent } from './purchase-ease-survey/purchase-ease-survey.component'; // <-- Añade esto
+import { PurchaseEaseSurveyComponent } from './purchase-ease-survey/purchase-ease-survey.component';
+import { EmailFeedbackSurveyComponent } from './email-feedback-survey/email-feedback-survey.component';
+import { WebsiteUsabilitySurveyComponent } from './website-usability-survey/website-usability-survey.component';
+import { StaffCourtesySurveyComponent } from './staff-courtesy-survey/staff-courtesy-survey.component'; // <-- Añade esto
 @NgModule({
   declarations: [
     AppComponent,
     SurveyFormComponent,
     StatisticsComponent,
     RecommendationSurveyComponent,
-    PurchaseEaseSurveyComponent
+    PurchaseEaseSurveyComponent,
+    EmailFeedbackSurveyComponent,
+    WebsiteUsabilitySurveyComponent,
+    StaffCourtesySurveyComponent
 
   ],
   imports: [

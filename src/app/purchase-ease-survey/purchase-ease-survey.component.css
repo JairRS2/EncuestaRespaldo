@@ -4,7 +4,7 @@
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  padding: 20px;
+
   background-color: #e3f2fd; /* Fondo azul claro */
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
@@ -13,7 +13,7 @@
   background: white;
   border-radius: 16px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  padding: 30px;
+  padding: 10px;
   width: 100%;
   max-width: 600px;
 }
@@ -230,40 +230,31 @@
 
 @media (max-width: 480px) {
   .survey-container {
-    padding: 10px;
+    padding: 1px; /* Un poco más de padding para mejor espaciado en pantallas pequeñas */
   }
 
   .survey-title {
-    font-size: 1.5rem;
+    font-size: 1.5rem; /* Reducimos un poco más el título */
   }
 
-  .rating-options-horizontal {
-    gap: 5px;
+  .rating-option-horizontal{ /* Apuntamos al label que contiene el icono y el texto */
+    gap: 5px; /* Reducimos el espacio entre el icono y el texto */
   }
 
-  .platform-options {
-    flex-direction: row; /* Mantener en fila, pero permitir wrapping */
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
+  .emoji-icon {
+    max-height: 40px; /* Reducimos el tamaño del icono */
+    max-width: 40px;
+
   }
 
-  .platform-option label {
-    padding: 8px;
-  }
+  .rating-option-horizontal  span.rating-label { /* Apuntamos directamente al span dentro del label */
+    font-size: 0.62rem;
+    font-weight: bold;
 
-  .platform-icon {
-    height: 1.6rem;
-    margin-right: 6px;
-  }
-
-  .platform-option span,
-  .platform-label {
-    font-size: 0.85rem;
   }
 
   .company-logo {
-    max-height: 50px;
+    max-height: 55px; /* Reducimos también el logo */
   }
 }
 .emoji-icon {

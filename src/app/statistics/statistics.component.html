@@ -1,11 +1,13 @@
 <div class="dashboard-container">
   <h2>
-    📊 Dashboard de Satisfacción, Recomendación y Facilidad de Compra
-    <button mat-raised-button color="warn" (click)="reiniciarEstadisticas()">
-      Actualizar Estadísticas
+    📊 Panel de Visualización Integral de Datos de Encuestas de Satisfacción y Opinión del Cliente
+    <button mat-raised-button class="update-button" (click)="reiniciarEstadisticas()">
+      <mat-icon>refresh</mat-icon>
+      <span class="button-text">Actualizar Gráficas</span>
     </button>
-    <button mat-raised-button color="primary" (click)="generarReportePDF()" style="margin-left: 1rem;">
-      Descargar Reporte PDF
+    <button mat-raised-button class="download-button" (click)="generarReportePDF()">
+      <mat-icon>download</mat-icon>
+      <span class="button-text">Descargar Reportes</span>
     </button>
   </h2>
 
@@ -15,99 +17,537 @@
   </div>
 
   <div *ngIf="!loading" class="charts-container">
-    <!-- Gráfico de Pregunta 1 -->
-    <div class="chart-card">
-      <h4>😊 Satisfacción con el Servicio Taquilla/Paqueteria</h4>
-      <p class="most-voted">Más votado: {{ getMostVotedResponse(stats.satisfaccion.pregunta1) }}</p>
-      <canvas baseChart
-        [data]="pregunta1Data"
-        [options]="barChartOptions"
-        [type]="barChartType">
-      </canvas>
-      <div class="stats-summary">
-        <p>Total respuestas: {{ getTotalResponses(pregunta1Data) }}</p>
-        <p>CSAT: {{ getAverageForChart(pregunta1Data) | number:'1.1-1' }}/5</p>
+    <!-- Sección 1: Satisfacción -->
+    <div class="chart-section">
+      <h3 class="section-title">Satisfacción del Cliente</h3>
+      <div class="chart-grid">
+        <!-- Gráfica de barras pregunta 1 -->
+        <div class="chart-card"
+             [class.expanded]="isExpanded('pregunta1')"
+             (click)="toggleExpand('pregunta1')" #chartCard>
+          <h4>😊 Satisfacción con el Servicio Taquilla/Paqueteria</h4>
+          <p class="most-voted">Más votado: {{ getMostVotedResponse(stats.satisfaccion.pregunta1) }}</p>
+          <div class="chart-container">
+            <canvas baseChart [data]="pregunta1Data" [options]="barChartOptions" [type]="barChartType"></canvas>
+          </div>
+          <div class="stats-summary">
+            <p>Total respuestas: {{ getTotalResponses(pregunta1Data) }}</p>
+            <p>CSAT: {{ getAverageForChart(pregunta1Data) | number:'1.1-1' }}/5</p>
+          </div>
+        </div>
+
+        <!-- Gráfica de pastel pregunta 1 -->
+        <div class="chart-card"
+             [class.expanded]="isExpanded('pregunta1Pie')"
+             (click)="toggleExpand('pregunta1Pie')"#pieChartCard>
+          <h4>Distribución de Satisfacción</h4>
+
+            <canvas baseChart [data]="pregunta1PieData" [options]="pieChartOptions" [type]="pieChartType"></canvas>
+
+        </div>
+
+        <!-- Gráfica de barras pregunta 2 -->
+        <div class="chart-card"
+             [class.expanded]="isExpanded('pregunta2')"
+             (click)="toggleExpand('pregunta2')" #chartCard>
+          <h4>🤝 Servicio que ofrece la empresa</h4>
+          <p class="most-voted">Más votado: {{ getMostVotedResponse(stats.satisfaccion.pregunta2) }}</p>
+          <div class="chart-container">
+            <canvas baseChart [data]="pregunta2Data" [options]="barChartOptions" [type]="barChartType"></canvas>
+          </div>
+          <div class="stats-summary">
+            <p>Total respuestas: {{ getTotalResponses(pregunta2Data) }}</p>
+            <p>CSAT: {{ getAverageForChart(pregunta2Data) | number:'1.1-1' }}/5</p>
+          </div>
+        </div>
+
+        <!-- Gráfica de pastel pregunta 2 -->
+        <div class="chart-card"
+             [class.expanded]="isExpanded('pregunta2Pie')"
+             (click)="toggleExpand('pregunta2Pie')" #pieChartCard>
+          <h4>Distribución de Servicio</h4>
+
+            <canvas baseChart [data]="pregunta2PieData" [options]="pieChartOptions" [type]="pieChartType"></canvas>
+
+        </div>
       </div>
     </div>
 
-    <!-- Gráfico de Pregunta 2 -->
-    <div class="chart-card">
-      <h4>🤝 Servicio que ofrece la empresa</h4>
-      <p class="most-voted">Más votado: {{ getMostVotedResponse(stats.satisfaccion.pregunta2) }}</p>
-      <canvas baseChart
-        [data]="pregunta2Data"
-        [options]="barChartOptions"
-        [type]="barChartType">
-      </canvas>
-      <div class="stats-summary">
-        <p>Total respuestas: {{ getTotalResponses(pregunta2Data) }}</p>
-        <p>CSAT: {{ getAverageForChart(pregunta2Data) | number:'1.1-1' }}/5</p>
+    <!-- Sección 2: Recomendación -->
+    <div class="chart-section">
+      <h3 class="section-title">Recomendación</h3>
+      <div class="chart-grid">
+        <!-- Gráfica de barras recomendación -->
+        <div class="chart-card"
+             [class.expanded]="isExpanded('recomendacion')"
+             (click)="toggleExpand('recomendacion')" #chartCard>
+          <h4>💬 ¿Recomendarían nuestro servicio?</h4>
+          <p class="most-voted">Más votado: {{ getMostVotedResponse(stats.recomendacion.respuestas) }}</p>
+          <div class="chart-container">
+            <canvas baseChart [data]="recomendacionData" [options]="barChartOptions" [type]="barChartType"></canvas>
+          </div>
+          <div class="stats-summary">
+            <p>Total respuestas: {{ getTotalResponses(recomendacionData) }}</p>
+            <p>NPS: {{ calculateNPS(stats.recomendacion.respuestas) | number:'1.0-0' }}%</p>
+          </div>
+        </div>
+
+        <!-- Gráfica de pastel recomendación -->
+        <div class="chart-card"
+             [class.expanded]="isExpanded('recomendacionPie')"
+             (click)="toggleExpand('recomendacionPie')"   #pieChartCard>
+          <h4>Distribución de Recomendaciones</h4>
+
+            <canvas baseChart [data]="recomendacionPieData" [options]="pieChartOptions" [type]="pieChartType"></canvas>
+
+        </div>
       </div>
     </div>
 
-    <!-- Gráfico de Recomendación -->
-    <div class="chart-card">
-      <h4>💬 ¿Recomendarían nuestro servicio?</h4>
-      <p class="most-voted">Más votado: {{ getMostVotedResponse(stats.recomendacion.respuestas) }}</p>
-      <canvas baseChart
-        [data]="recomendacionData"
-        [options]="barChartOptions"
-        [type]="barChartType">
-      </canvas>
-      <div class="stats-summary">
-        <p>Total respuestas: {{ getTotalResponses(recomendacionData) }}</p>
-        <p>NPS: {{ calculateNPS(stats.recomendacion.respuestas) | number:'1.0-0' }}%</p>
+    <!-- Sección 3: Facilidad de Compra -->
+    <div class="chart-section">
+      <h3 class="section-title">Facilidad de Compra</h3>
+      <div class="chart-grid">
+        <!-- Gráfica de barras facilidad -->
+        <div class="chart-card"
+             [class.expanded]="isExpanded('facilidad')"
+             (click)="toggleExpand('facilidad')" #chartCard>
+          <h4>🎫 Facilidad de Compra Boletos</h4>
+          <p class="most-voted">Más votado: {{ getMostVotedResponse(stats.facilidadCompra.facilidad) }}</p>
+          <div class="chart-container">
+            <canvas baseChart [data]="facilidadData" [options]="barChartOptions" [type]="barChartType"></canvas>
+          </div>
+          <div class="stats-summary">
+            <p>Total respuestas: {{ getTotalResponses(facilidadData) }}</p>
+            <p>CES: {{ getAverageForFacilityChart(facilidadData) | number:'1.1-1' }}/5</p>
+          </div>
+        </div>
+
+        <!-- Gráfica de pastel facilidad -->
+        <div class="chart-card"
+             [class.expanded]="isExpanded('facilidadPie')"
+             (click)="toggleExpand('facilidadPie')"   #pieChartCard>
+          <h4>Distribución de Facilidad</h4>
+
+            <canvas baseChart [data]="facilidadPieData" [options]="pieChartOptions" [type]="pieChartType"></canvas>
+
+        </div>
+
+        <!-- Gráfica de barras plataforma -->
+        <div class="chart-card"
+             [class.expanded]="isExpanded('plataforma')"
+             (click)="toggleExpand('plataforma')" #chartCard>
+          <h4>🖥️ Plataformas Utilizadas</h4>
+          <p class="most-voted">Más usada: {{ getMostVotedResponse(stats.facilidadCompra.plataforma) }}</p>
+          <div class="chart-container">
+            <canvas baseChart [data]="plataformaData" [options]="barChartOptions" [type]="barChartType"></canvas>
+          </div>
+          <div class="stats-summary">
+            <p>Total respuestas: {{ getTotalResponses(plataformaData) }}</p>
+            <p>Plataformas distintas: {{ stats.facilidadCompra.plataforma.length }}</p>
+          </div>
+        </div>
+
+        <!-- Gráfica de pastel plataforma -->
+        <div class="chart-card"
+             [class.expanded]="isExpanded('plataformaPie')"
+             (click)="toggleExpand('plataformaPie')"  #pieChartCard>
+          <h4>Distribución de Plataformas</h4>
+
+            <canvas baseChart [data]="plataformaPieData" [options]="pieChartOptions" [type]="pieChartType"></canvas>
+
+        </div>
       </div>
     </div>
 
-    <!-- Gráfico para Facilidad de Compra -->
-    <div class="chart-card">
-      <h4>🎫 Facilidad de Compra Boletos</h4>
-      <p class="most-voted">Más votado: {{ getMostVotedResponse(stats.facilidadCompra.facilidad) }}</p>
-      <canvas baseChart
-        [data]="facilidadData"
-        [options]="barChartOptions"
-        [type]="barChartType">
-      </canvas>
-      <div class="stats-summary">
-        <p>Total respuestas: {{ getTotalResponses(facilidadData) }}</p>
-        <p>CES: {{ getAverageForFacilityChart(facilidadData) | number:'1.1-1' }}/5</p>
+    <!-- Sección 4: Experiencia Digital -->
+    <div class="chart-section">
+      <h3 class="section-title">Experiencia Digital</h3>
+      <div class="chart-grid">
+        <!-- Gráfica de barras email -->
+        <div class="chart-card"
+             [class.expanded]="isExpanded('emailUtilidad')"
+             (click)="toggleExpand('emailUtilidad')" #chartCard>
+          <h4>📧 Utilidad del Correo Electrónico</h4>
+          <p class="most-voted">Más votado: {{ getMostVotedResponse(stats.emailFeedback.utilidadEmail) }}</p>
+          <div class="chart-container">
+            <canvas baseChart [data]="emailUtilidadData" [options]="barChartOptions" [type]="barChartType"></canvas>
+          </div>
+          <div class="stats-summary">
+            <p>Total respuestas: {{ getTotalResponses(emailUtilidadData) }}</p>
+            <p>CSAT: {{ getAverageForChart(emailUtilidadData) | number:'1.1-1' }}/5</p>
+          </div>
+        </div>
+
+        <!-- Gráfica de pastel email -->
+        <div class="chart-card"
+             [class.expanded]="isExpanded('emailUtilidadPie')"
+             (click)="toggleExpand('emailUtilidadPie')" #pieChartCard>
+          <h4>Distribución Utilidad Email</h4>
+
+            <canvas baseChart [data]="emailUtilidadPieData" [options]="pieChartOptions" [type]="pieChartType"></canvas>
+
+        </div>
+
+        <!-- Gráfica de barras web facilidad -->
+        <div class="chart-card"
+             [class.expanded]="isExpanded('websiteFacilidad')"
+             (click)="toggleExpand('websiteFacilidad')" #chartCard>
+          <h4>🌐 Facilidad para encontrar información Web</h4>
+          <p class="most-voted">Más votado: {{ getMostVotedResponse(stats.websiteUsability.facilidadInfoWeb) }}</p>
+          <div class="chart-container">
+            <canvas baseChart [data]="websiteFacilidadData" [options]="barChartOptions" [type]="barChartType"></canvas>
+          </div>
+          <div class="stats-summary">
+            <p>Total respuestas: {{ getTotalResponses(websiteFacilidadData) }}</p>
+            <p>CES: {{ getAverageForFacilityChart(websiteFacilidadData) | number:'1.1-1' }}/5</p>
+          </div>
+        </div>
+
+        <!-- Gráfica de pastel web facilidad -->
+        <div class="chart-card"
+             [class.expanded]="isExpanded('websiteFacilidadPie')"
+             (click)="toggleExpand('websiteFacilidadPie')" #pieChartCard>
+          <h4>Distribución Facilidad Web</h4>
+
+            <canvas baseChart [data]="websiteFacilidadPieData" [options]="pieChartOptions" [type]="pieChartType"></canvas>
+
+        </div>
+
+        <!-- Gráfica de barras web intuitividad -->
+        <div class="chart-card"
+             [class.expanded]="isExpanded('websiteIntuitividad')"
+             (click)="toggleExpand('websiteIntuitividad')" #chartCard>
+          <h4>🧭 Intuitividad de la Navegación Web</h4>
+          <p class="most-voted">Más votado: {{ getMostVotedResponse(stats.websiteUsability.intuitividadNavegacion) }}</p>
+          <div class="chart-container">
+            <canvas baseChart [data]="websiteIntuitividadData" [options]="barChartOptions" [type]="barChartType"></canvas>
+          </div>
+          <div class="stats-summary">
+            <p>Total respuestas: {{ getTotalResponses(websiteIntuitividadData) }}</p>
+            <p>CSAT: {{ getIntuitiva(websiteIntuitividadData) | number:'1.1-1' }}/5</p>
+          </div>
+        </div>
+
+        <!-- Gráfica de pastel web intuitividad -->
+        <div class="chart-card"
+             [class.expanded]="isExpanded('websiteIntuitividadPie')"
+             (click)="toggleExpand('websiteIntuitividadPie')" #pieChartCard>
+          <h4>Distribución Intuitividad</h4>
+
+            <canvas baseChart [data]="websiteIntuitividadPieData" [options]="pieChartOptions" [type]="pieChartType"></canvas>
+
+        </div>
       </div>
     </div>
 
-    <!-- Gráfico para Plataformas de Compra -->
-    <div class="chart-card">
-      <h4>🖥️ Plataformas Utilizadas</h4>
-      <p class="most-voted">Más usada: {{ getMostVotedResponse(stats.facilidadCompra.plataforma) }}</p>
-      <canvas baseChart
-        [data]="plataformaData"
-        [options]="barChartOptions"
-        [type]="barChartType">
-      </canvas>
-      <div class="stats-summary">
-        <p>Total respuestas: {{ getTotalResponses(plataformaData) }}</p>
-        <p>Plataformas distintas: {{ stats.facilidadCompra.plataforma.length }}</p>
+    <!-- Sección 5: Atención al Cliente -->
+    <div class="chart-section">
+      <h3 class="section-title">Atención al Cliente</h3>
+      <div class="chart-grid">
+        <!-- Gráfica de barras amabilidad -->
+        <div class="chart-card"
+             [class.expanded]="isExpanded('staffAmabilidad')"
+             (click)="toggleExpand('staffAmabilidad')" #chartCard>
+          <h4>😊 Amabilidad del Personal</h4>
+          <p class="most-voted">Más votado: {{ getMostVotedResponse(stats.staffCourtesy.amabilidad) }}</p>
+          <div class="chart-container">
+            <canvas baseChart [data]="staffAmabilidadData" [options]="barChartOptions" [type]="barChartType"></canvas>
+          </div>
+          <div class="stats-summary">
+            <p>Total respuestas: {{ getTotalResponses(staffAmabilidadData) }}</p>
+            <p>SQI: {{ getAmabilidad(staffAmabilidadData) | number:'1.1-1' }}/5</p>
+          </div>
+        </div>
+
+        <!-- Gráfica de pastel amabilidad -->
+        <div class="chart-card"
+             [class.expanded]="isExpanded('staffAmabilidadPie')"
+             (click)="toggleExpand('staffAmabilidadPie')" #pieChartCard>
+          <h4>Distribución Amabilidad</h4>
+
+            <canvas baseChart [data]="staffAmabilidadPieData" [options]="pieChartOptions" [type]="pieChartType"></canvas>
+
+        </div>
+
+        <!-- Gráfica de barras atención -->
+        <div class="chart-card"
+             [class.expanded]="isExpanded('staffAtencion')"
+             (click)="toggleExpand('staffAtencion')" #chartCard>
+          <h4>👂 Atención del Personal</h4>
+          <p class="most-voted">Más votado: {{ getMostVotedResponse(stats.staffCourtesy.atencion) }}</p>
+          <div class="chart-container">
+            <canvas baseChart [data]="staffAtencionData" [options]="barChartOptions" [type]="barChartType"></canvas>
+          </div>
+          <div class="stats-summary">
+            <p>Total respuestas: {{ getTotalResponses(staffAtencionData) }}</p>
+            <p>CPA: {{ getAtencion(staffAtencionData) | number:'1.1-1' }}/5</p>
+          </div>
+        </div>
+
+        <!-- Gráfica de pastel atención -->
+        <div class="chart-card"
+             [class.expanded]="isExpanded('staffAtencionPie')"
+             (click)="toggleExpand('staffAtencionPie')" #pieChartCard>
+          <h4>Distribución Atención</h4>
+
+            <canvas baseChart [data]="staffAtencionPieData" [options]="pieChartOptions" [type]="pieChartType"></canvas>
+
+        </div>
       </div>
     </div>
 
-    <!-- Gráfico de Tendencias -->
-    <div class="chart-card full-width">
-      <h4>📈 Evolución Mensual</h4>
-      <canvas baseChart
-        [data]="tendenciasData"
-        [options]="lineChartOptions"
-        [type]="lineChartType">
-      </canvas>
-    </div>
+    <!-- Sección 6: Tendencias y Combinaciones -->
+    <div class="chart-section">
+      <h3 class="section-title">Tendencias y Análisis</h3>
+      <div class="chart-grid">
+        <!-- Gráfica de líneas tendencias -->
+        <div class="chart-card full-width"
+             [class.expanded]="isExpanded('tendencias')"
+             (click)="toggleExpand('tendencias')" #chartCard>
+          <h4>📈 Evolución Mensual</h4>
 
-    <!-- Gráfico de Combinación Facilidad/Plataforma -->
-    <div class="chart-card full-width">
-      <h4>📊 Facilidad por Plataforma</h4>
-      <canvas baseChart
-        [data]="combinacionData"
-        [options]="comboChartOptions"
-        [type]="barChartType">
-      </canvas>
+            <canvas baseChart [data]="tendenciasData" [options]="lineChartOptions" [type]="lineChartType"></canvas>
+
+        </div>
+
+        <!-- Gráfica de barras combinación -->
+        <div class="chart-card full-width"
+             [class.expanded]="isExpanded('combinacion')"
+             (click)="toggleExpand('combinacion')" #chartCard>
+          <h4>📊 Facilidad por Plataforma</h4>
+
+            <canvas baseChart [data]="combinacionData" [options]="comboChartOptions" [type]="barChartType"></canvas>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal para gráficas expandidas -->
+  <div class="chart-modal" *ngIf="expandedChart" (click)="toggleExpand(expandedChart)">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <button class="close-button" (click)="toggleExpand(expandedChart)">
+        <mat-icon>close</mat-icon>
+      </button>
+
+      <ng-container [ngSwitch]="expandedChart">
+        <!-- Pregunta 1 -->
+        <ng-container *ngSwitchCase="'pregunta1'">
+          <h4>😊 Satisfacción con el Servicio Taquilla/Paqueteria</h4>
+          <div class="expanded-chart-container">
+            <canvas baseChart [data]="pregunta1Data" [options]="barChartOptions" [type]="barChartType"></canvas>
+          </div>
+          <div class="stats-summary">
+            <p>Total respuestas: {{ getTotalResponses(pregunta1Data) }}</p>
+            <p>CSAT: {{ getAverageForChart(pregunta1Data) | number:'1.1-1' }}/5</p>
+          </div>
+        </ng-container>
+
+        <!-- Pregunta 1 Pie -->
+        <ng-container *ngSwitchCase="'pregunta1Pie'">
+          <h4>Distribución de Satisfacción</h4>
+          <div class="expanded-chart-container">
+            <canvas baseChart [data]="pregunta1PieData" [options]="pieChartOptions" [type]="pieChartType"></canvas>
+          </div>
+        </ng-container>
+
+        <!-- Pregunta 2 -->
+        <ng-container *ngSwitchCase="'pregunta2'">
+          <h4>🤝 Servicio que ofrece la empresa</h4>
+          <div class="expanded-chart-container">
+            <canvas baseChart [data]="pregunta2Data" [options]="barChartOptions" [type]="barChartType"></canvas>
+          </div>
+          <div class="stats-summary">
+            <p>Total respuestas: {{ getTotalResponses(pregunta2Data) }}</p>
+            <p>CSAT: {{ getAverageForChart(pregunta2Data) | number:'1.1-1' }}/5</p>
+          </div>
+        </ng-container>
+
+        <!-- Pregunta 2 Pie -->
+        <ng-container *ngSwitchCase="'pregunta2Pie'">
+          <h4>Distribución de Servicio</h4>
+          <div class="expanded-chart-container">
+            <canvas baseChart [data]="pregunta2PieData" [options]="pieChartOptions" [type]="pieChartType"></canvas>
+          </div>
+        </ng-container>
+
+        <!-- Recomendación -->
+        <ng-container *ngSwitchCase="'recomendacion'">
+          <h4>💬 ¿Recomendarían nuestro servicio?</h4>
+          <div class="expanded-chart-container">
+            <canvas baseChart [data]="recomendacionData" [options]="barChartOptions" [type]="barChartType"></canvas>
+          </div>
+          <div class="stats-summary">
+            <p>Total respuestas: {{ getTotalResponses(recomendacionData) }}</p>
+            <p>NPS: {{ calculateNPS(stats.recomendacion.respuestas) | number:'1.0-0' }}%</p>
+          </div>
+        </ng-container>
+
+        <!-- Recomendación Pie -->
+        <ng-container *ngSwitchCase="'recomendacionPie'">
+          <h4>Distribución de Recomendaciones</h4>
+          <div class="expanded-chart-container">
+            <canvas baseChart [data]="recomendacionPieData" [options]="pieChartOptions" [type]="pieChartType"></canvas>
+          </div>
+        </ng-container>
+
+        <!-- Facilidad -->
+        <ng-container *ngSwitchCase="'facilidad'">
+          <h4>🎫 Facilidad de Compra Boletos</h4>
+          <div class="expanded-chart-container">
+            <canvas baseChart [data]="facilidadData" [options]="barChartOptions" [type]="barChartType"></canvas>
+          </div>
+          <div class="stats-summary">
+            <p>Total respuestas: {{ getTotalResponses(facilidadData) }}</p>
+            <p>CES: {{ getAverageForFacilityChart(facilidadData) | number:'1.1-1' }}/5</p>
+          </div>
+        </ng-container>
+
+        <!-- Facilidad Pie -->
+        <ng-container *ngSwitchCase="'facilidadPie'">
+          <h4>Distribución de Facilidad</h4>
+          <div class="expanded-chart-container">
+            <canvas baseChart [data]="facilidadPieData" [options]="pieChartOptions" [type]="pieChartType"></canvas>
+          </div>
+        </ng-container>
+
+        <!-- Plataforma -->
+        <ng-container *ngSwitchCase="'plataforma'">
+          <h4>🖥️ Plataformas Utilizadas</h4>
+          <div class="expanded-chart-container">
+            <canvas baseChart [data]="plataformaData" [options]="barChartOptions" [type]="barChartType"></canvas>
+          </div>
+          <div class="stats-summary">
+            <p>Total respuestas: {{ getTotalResponses(plataformaData) }}</p>
+            <p>Plataformas distintas: {{ stats.facilidadCompra.plataforma.length }}</p>
+          </div>
+        </ng-container>
+
+        <!-- Plataforma Pie -->
+        <ng-container *ngSwitchCase="'plataformaPie'">
+          <h4>Distribución de Plataformas</h4>
+          <div class="expanded-chart-container">
+            <canvas baseChart [data]="plataformaPieData" [options]="pieChartOptions" [type]="pieChartType"></canvas>
+          </div>
+        </ng-container>
+
+        <!-- Email Utilidad -->
+        <ng-container *ngSwitchCase="'emailUtilidad'">
+          <h4>📧 Utilidad del Correo Electrónico</h4>
+          <div class="expanded-chart-container">
+            <canvas baseChart [data]="emailUtilidadData" [options]="barChartOptions" [type]="barChartType"></canvas>
+          </div>
+          <div class="stats-summary">
+            <p>Total respuestas: {{ getTotalResponses(emailUtilidadData) }}</p>
+            <p>CSAT: {{ getAverageForChart(emailUtilidadData) | number:'1.1-1' }}/5</p>
+          </div>
+        </ng-container>
+
+        <!-- Email Utilidad Pie -->
+        <ng-container *ngSwitchCase="'emailUtilidadPie'">
+          <h4>Distribución Utilidad Email</h4>
+          <div class="expanded-chart-container">
+            <canvas baseChart [data]="emailUtilidadPieData" [options]="pieChartOptions" [type]="pieChartType"></canvas>
+          </div>
+        </ng-container>
+
+        <!-- Website Facilidad -->
+        <ng-container *ngSwitchCase="'websiteFacilidad'">
+          <h4>🌐 Facilidad para encontrar información Web</h4>
+          <div class="expanded-chart-container">
+            <canvas baseChart [data]="websiteFacilidadData" [options]="barChartOptions" [type]="barChartType"></canvas>
+          </div>
+          <div class="stats-summary">
+            <p>Total respuestas: {{ getTotalResponses(websiteFacilidadData) }}</p>
+            <p>CES: {{ getAverageForFacilityChart(websiteFacilidadData) | number:'1.1-1' }}/5</p>
+          </div>
+        </ng-container>
+
+        <!-- Website Facilidad Pie -->
+        <ng-container *ngSwitchCase="'websiteFacilidadPie'">
+          <h4>Distribución Facilidad Web</h4>
+          <div class="expanded-chart-container">
+            <canvas baseChart [data]="websiteFacilidadPieData" [options]="pieChartOptions" [type]="pieChartType"></canvas>
+          </div>
+        </ng-container>
+
+        <!-- Website Intuitividad -->
+        <ng-container *ngSwitchCase="'websiteIntuitividad'">
+          <h4>🧭 Intuitividad de la Navegación Web</h4>
+          <div class="expanded-chart-container">
+            <canvas baseChart [data]="websiteIntuitividadData" [options]="barChartOptions" [type]="barChartType"></canvas>
+          </div>
+          <div class="stats-summary">
+            <p>Total respuestas: {{ getTotalResponses(websiteIntuitividadData) }}</p>
+            <p>CSAT: {{ getIntuitiva(websiteIntuitividadData) | number:'1.1-1' }}/5</p>
+          </div>
+        </ng-container>
+
+        <!-- Website Intuitividad Pie -->
+        <ng-container *ngSwitchCase="'websiteIntuitividadPie'">
+          <h4>Distribución Intuitividad</h4>
+          <div class="expanded-chart-container">
+            <canvas baseChart [data]="websiteIntuitividadPieData" [options]="pieChartOptions" [type]="pieChartType"></canvas>
+          </div>
+        </ng-container>
+
+        <!-- Staff Amabilidad -->
+        <ng-container *ngSwitchCase="'staffAmabilidad'">
+          <h4>😊 Amabilidad del Personal</h4>
+          <div class="expanded-chart-container">
+            <canvas baseChart [data]="staffAmabilidadData" [options]="barChartOptions" [type]="barChartType"></canvas>
+          </div>
+          <div class="stats-summary">
+            <p>Total respuestas: {{ getTotalResponses(staffAmabilidadData) }}</p>
+            <p>SQI: {{ getAmabilidad(staffAmabilidadData) | number:'1.1-1' }}/5</p>
+          </div>
+        </ng-container>
+
+        <!-- Staff Amabilidad Pie -->
+        <ng-container *ngSwitchCase="'staffAmabilidadPie'">
+          <h4>Distribución Amabilidad</h4>
+          <div class="expanded-chart-container">
+            <canvas baseChart [data]="staffAmabilidadPieData" [options]="pieChartOptions" [type]="pieChartType"></canvas>
+          </div>
+        </ng-container>
+
+        <!-- Staff Atención -->
+        <ng-container *ngSwitchCase="'staffAtencion'">
+          <h4>👂 Atención del Personal</h4>
+          <div class="expanded-chart-container">
+            <canvas baseChart [data]="staffAtencionData" [options]="barChartOptions" [type]="barChartType"></canvas>
+          </div>
+          <div class="stats-summary">
+            <p>Total respuestas: {{ getTotalResponses(staffAtencionData) }}</p>
+            <p>CPA: {{ getAtencion(staffAtencionData) | number:'1.1-1' }}/5</p>
+          </div>
+        </ng-container>
+
+        <!-- Staff Atención Pie -->
+        <ng-container *ngSwitchCase="'staffAtencionPie'">
+          <h4>Distribución Atención</h4>
+          <div class="expanded-chart-container">
+            <canvas baseChart [data]="staffAtencionPieData" [options]="pieChartOptions" [type]="pieChartType"></canvas>
+          </div>
+        </ng-container>
+
+        <!-- Tendencias -->
+        <ng-container *ngSwitchCase="'tendencias'">
+          <h4>📈 Evolución Mensual</h4>
+          <div class="expanded-chart-container">
+            <canvas baseChart [data]="tendenciasData" [options]="lineChartOptions" [type]="lineChartType"></canvas>
+          </div>
+        </ng-container>
+
+        <!-- Combinación -->
+        <ng-container *ngSwitchCase="'combinacion'">
+          <h4>📊 Facilidad por Plataforma</h4>
+          <div class="expanded-chart-container">
+            <canvas baseChart [data]="combinacionData" [options]="comboChartOptions" [type]="barChartType"></canvas>
+          </div>
+        </ng-container>
+      </ng-container>
     </div>
   </div>
 </div>

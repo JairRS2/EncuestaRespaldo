@@ -1,0 +1,187 @@
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #f5f5f5;
+}
+
+.app-header {
+  background: linear-gradient(135deg, #3f51b5 0%, #2196F3 100%);
+  color: white;
+  padding: 0;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  position: relative;
+
+}
+
+.header-content {
+  display: flex;
+  justify-content: center; /* Centramos el contenido del header */
+  align-items: center;
+  padding: 0.75rem 1.5rem;
+}
+
+.app-title {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 500;
+  text-align: center; /* Aseguramos que el texto esté centrado */
+  flex-grow: 1; /* Permite que el título ocupe el espacio disponible */
+}
+
+.menu-toggle {
+  display: none;
+  color: white;
+}
+
+.survey-navigation {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.survey-navigation button {
+  color: white;
+  padding: 0.75rem 1rem;
+  margin: 0.25rem;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 120px;
+  transition: all 0.2s ease;
+  background-color: transparent;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+  }
+
+  mat-icon {
+    margin-bottom: 0.25rem;
+    font-size: 1.5rem;
+    width: auto;
+    height: auto;
+  }
+
+  .nav-text {
+    font-size: 0.85rem;
+    white-space: nowrap;
+  }
+}
+
+.active-link {
+  background-color: rgba(255, 255, 255, 0.3) !important;
+  font-weight: 500;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.app-content {
+  padding: 1px;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Responsive Styles */
+@media (max-width: 992px) {
+  .survey-navigation {
+    justify-content: flex-start;
+    overflow-x: auto;
+    padding: 0.5rem 1rem;
+    -webkit-overflow-scrolling: touch;
+
+    &::-webkit-scrollbar {
+      height: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: rgba(255, 255, 255, 0.3);
+      border-radius: 2px;
+    }
+  }
+
+  .survey-navigation button {
+    min-width: 100px;
+    padding: 0.5rem 0.75rem;
+
+    mat-icon {
+      font-size: 1.25rem;
+    }
+
+    .nav-text {
+      font-size: 0.75rem;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .header-content {
+    justify-content: center; /* Centramos el título en pantallas pequeñas */
+  }
+
+  .menu-toggle {
+    display: block;
+    position: absolute; /* Lo posicionamos para que no afecte el centrado del título */
+    left: 1rem;
+  }
+
+  .app-title {
+    text-align: center;
+  }
+
+  .survey-navigation {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 0;
+    max-height: 0;
+    overflow: hidden;
+
+    &.mobile-hidden {
+      max-height: 0;
+    }
+
+    &:not(.mobile-hidden) {
+      max-height: 500px;
+      padding: 0.5rem 0;
+    }
+  }
+
+  .survey-navigation button {
+    flex-direction: row;
+    justify-content: flex-start;
+    min-width: auto;
+    padding: 0.75rem 1.5rem;
+    margin: 0;
+    border-radius: 0;
+
+    mat-icon {
+      margin-bottom: 0;
+      margin-right: 0.75rem;
+      font-size: 1.25rem;
+    }
+
+    .nav-text {
+      font-size: 0.9rem;
+    }
+  }
+
+  .app-content {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .header-content {
+    padding: 0.75rem 1rem;
+  }
+
+  .app-title {
+    font-size: 1.25rem;
+  }
+}

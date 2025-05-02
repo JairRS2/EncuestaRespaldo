@@ -9,7 +9,11 @@ import { AuthService } from './auth.service';
 })
 export class AppComponent {
   constructor(private router: Router, private authService: AuthService) {}
+  menuOpen = true;
 
+  toggleMenu() {
+    this.menuOpen = !this.menuOpen;
+  }
   navigateToAdmin() {
     this.router.navigate(['/admin/estadisticas']);
   }

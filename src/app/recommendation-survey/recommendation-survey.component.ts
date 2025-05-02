@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import Swal from 'sweetalert2';
 
 interface RecommendationOption {
   value: string;
@@ -23,7 +24,7 @@ export class RecommendationSurveyComponent {
     { value: 'not-sure', label: 'No estoy seguro', icon: '/assets/Neutral.png', colorValue: 3},
     { value: 'probably-no', label: 'Probablemente no', icon: '/assets/Molesto.png', colorValue: 4 },
     { value: 'definitely-no', label: 'Definitivamente no', icon: '/assets/Muy_Molesto.png', colorValue: 5 }
-  ];
+  ].reverse();
 
 
   selectedResponse: string = '';
@@ -49,13 +50,22 @@ export class RecommendationSurveyComponent {
       timestamp: new Date().toISOString()
     };
 
-    this.http.post('https://4c88-2806-10a6-6-5d2-7d80-bdf4-8119-725c.ngrok-free.app/api/submit-recommendation', requestData)
+    this.http.post('https://cd68-2806-10a6-6-5d2-7d80-bdf4-8119-725c.ngrok-free.app/api/submit-recommendation', requestData)
       .subscribe({
         next: () => {
-          this.snackBar.open('¡Gracias por tu recomendación!', 'Cerrar', {
-            duration: 2000,
-            panelClass: ['success-snackbar']
-          });
+         Swal.fire({
+              title: '¡Gracias por tu opinión!',
+              imageUrl: 'assets/gracias.png',
+              imageWidth: 100,
+              imageHeight: 100,
+              imageAlt: 'Imagen de agradecimiento',
+              showConfirmButton: false,
+              timer: 1500,
+              customClass: {
+                title: 'swal-title-elegante',
+                popup: 'swal-popup-elegante'
+              }
+            });
           this.resetForm();
           this.isLoading = false;
         },

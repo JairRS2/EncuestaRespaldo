@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import Swal from 'sweetalert2';
 
 interface SurveyOption {
   value: string;
@@ -76,12 +77,21 @@ export class PurchaseEaseSurveyComponent {
       timestamp: new Date().toISOString()
     };
 
-    this.http.post('https://4c88-2806-10a6-6-5d2-7d80-bdf4-8119-725c.ngrok-free.app/api/submit-purchase-ease', requestData)
+    this.http.post('https://cd68-2806-10a6-6-5d2-7d80-bdf4-8119-725c.ngrok-free.app/api/submit-purchase-ease', requestData)
       .subscribe({
         next: () => {
-          this.snackBar.open('¡Gracias por tu feedback!', 'Cerrar', {
-            duration: 2000,
-            panelClass: ['success-snackbar']
+       Swal.fire({
+            title: '¡Gracias por tu opinión!',
+            imageUrl: 'assets/gracias2.png',
+            imageWidth: 100,
+            imageHeight: 100,
+            imageAlt: 'Imagen de agradecimiento',
+            showConfirmButton: false,
+            timer: 1500,
+            customClass: {
+              title: 'swal-title-elegante',
+              popup: 'swal-popup-elegante'
+            }
           });
           this.resetForm();
         },
@@ -95,7 +105,7 @@ export class PurchaseEaseSurveyComponent {
         }
       });
   }
-//METODO PARA REINICIAR EL FORMULARIO
+//metodo para reiniciar el formulario e inicializar los valores
   resetForm() {
     this.selectedEase = '';
     this.selectedPlatform = '';

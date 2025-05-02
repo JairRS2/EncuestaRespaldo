@@ -10,7 +10,7 @@ export class AuthService {
   constructor(private router: Router) {}
 
   login(password: string | null): boolean {
-    if (password !== null && password === '12345') {
+    if (password !== null && password === 'adic') {
       this.isAuthenticated = true;
       return true;
     }

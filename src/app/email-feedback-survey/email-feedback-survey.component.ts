@@ -11,29 +11,29 @@ interface RatingOption {
 }
 
 @Component({
-  selector: 'app-survey-form',
-  templateUrl: './survey-form.component.html',
-  styleUrls: ['./survey-form.component.css']
+  selector: 'app-email-feedback-survey',
+  templateUrl: './email-feedback-survey.component.html',
+  styleUrls: ['./email-feedback-survey.component.css']
 })
-export class SurveyFormComponent {
-  question1 = '¿Cómo calificaría la atención recibida por nuestro personal de taquilla / paquetería?';
+export class EmailFeedbackSurveyComponent {
+  question1 = '¿Cómo calificaría la utilidad de la información proporcionada en los correos electrónicos?';
   options1: RatingOption[] = [
-    { value: 'muy-insatisfecho', label: 'Muy Insatisfecho', icon: '/assets/Muy_Molesto.png', colorValue: 5 },
-    { value: 'insatisfecho', label: 'Insatisfecho', icon: '/assets/Molesto.png', colorValue: 4 },
+    { value: 'muy-insatisfecho', label: 'Muy In satisfecho', icon: '/assets/Muy_Molesto.png', colorValue: 5 },
+    { value: 'insatisfecho', label: 'In satisfecho', icon: '/assets/Molesto.png', colorValue: 4 },
     { value: 'neutral', label: 'Neutral', icon: '/assets/Neutral.png', colorValue: 3 },
     { value: 'satisfecho', label: 'Satisfecho', icon: '/assets/Feliz.png', colorValue: 2 },
     { value: 'muy-satisfecho', label: 'Muy Satisfecho', icon: '/assets/Muy_Feliz.png', colorValue: 1 }
-  ];
+  ].reverse();
   selectedResponse1: string = '';
 
-  question2 = '¿Cuál es su nivel de satisfacción en general con el servicio que ofrece la empresa?';
+  question2 = '¿Con qué frecuencia encuentra útil la información que le enviamos por correo electrónico?';
   options2: RatingOption[] = [
-    { value: 'muy-insatisfecho', label: 'Muy Insatisfecho', icon: '/assets/Muy_Molesto.png', colorValue: 5 },
-    { value: 'insatisfecho', label: 'Insatisfecho', icon: '/assets/Molesto.png', colorValue: 4 },
-    { value: 'neutral', label: 'Neutral', icon: '/assets/Neutral.png', colorValue: 3 },
-    { value: 'satisfecho', label: 'Satisfecho', icon: '/assets/Feliz.png', colorValue: 2 },
-    { value: 'muy-satisfecho', label: 'Muy Satisfecho', icon: '/assets/Muy_Feliz.png', colorValue: 1 }
-  ];
+    { value: 'nunca', label: 'Nunca', icon: '/assets/Muy_Molesto.png', colorValue: 5 },
+    { value: 'rara-vez', label: 'Rara vez', icon: '/assets/Molesto.png', colorValue: 4 },
+    { value: 'a-veces', label: 'A veces', icon: '/assets/Neutral.png', colorValue: 3 },
+    { value: 'a-menudo', label: 'A menudo', icon: '/assets/Feliz.png', colorValue: 2 },
+    { value: 'siempre', label: 'Siempre', icon: '/assets/Muy_Feliz.png', colorValue: 1 }
+  ].reverse();
   selectedResponse2: string = '';
 
   errorMessage = '';
@@ -67,15 +67,15 @@ export class SurveyFormComponent {
     this.errorMessage = '';
 
     const requestData = {
-      q1: this.selectedResponse1,
-      q2: this.selectedResponse2,
+      utilidadEmail: this.selectedResponse1,
+      frecuenciaUtilEmail: this.selectedResponse2,
       timestamp: new Date().toISOString()
     };
 
-    this.http.post('https://cd68-2806-10a6-6-5d2-7d80-bdf4-8119-725c.ngrok-free.app/api/submit-survey', requestData)
+    this.http.post('https://cd68-2806-10a6-6-5d2-7d80-bdf4-8119-725c.ngrok-free.app/api/submit-email-feedback', requestData)
       .subscribe({
         next: () => {
-          Swal.fire({
+       Swal.fire({
             title: '¡Gracias por tu opinión!',
             imageUrl: 'assets/gracias2.png',
             imageWidth: 100,
@@ -92,9 +92,9 @@ export class SurveyFormComponent {
           this.isLoading = false;
         },
         error: (error) => {
-          console.error('Error al enviar respuestas:', error);
+          console.error('Error:', error);
           this.isLoading = false;
-          this.errorMessage = 'Error al guardar las respuestas. Por favor intenta nuevamente.';
+          this.errorMessage = 'Error al enviar. Por favor intenta nuevamente.';
           this.snackBar.open('Error al enviar la respuesta', 'Cerrar', {
             duration: 3000,
             panelClass: ['error-snackbar']
@@ -102,7 +102,7 @@ export class SurveyFormComponent {
         }
       });
   }
-//Metodo para reiniciar el formulario
+//Metodo para reiniciar el formulario y inicializar los valores
   resetForm() {
     this.selectedResponse1 = '';
     this.selectedResponse2 = '';

@@ -1,14 +1,43 @@
-<div style="display: flex; justify-content: center; align-items: center; min-height: 100vh;">
-  <mat-card>
-    <mat-card-content>
-      <router-outlet></router-outlet>
-
-      <div style="position: fixed; bottom: 20px; right: 20px;">
-        <button mat-fab color="primary" (click)="navigateToAdmin()"
-                matTooltip="Acceso administrador">
-          <mat-icon>admin_panel_settings</mat-icon>
-        </button>
-      </div>
-    </mat-card-content>
-  </mat-card>
+<div class="app-container">
+  <header class="app-header">
+    <div class="header-content">
+      <h1 class="app-title">Sistema de Encuestas</h1>
+      <button mat-icon-button class="menu-toggle" (click)="toggleMenu()">
+        <mat-icon>menu</mat-icon>
+      </button>
+    </div>
+    <nav class="survey-navigation" [class.mobile-hidden]="!menuOpen">
+      <button mat-button routerLink="/" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">
+        <mat-icon>assignment</mat-icon>
+        <span class="nav-text">Satisfacción</span>
+      </button>
+      <button mat-button routerLink="/recomendacion" routerLinkActive="active-link">
+        <mat-icon>thumb_up</mat-icon>
+        <span class="nav-text">Recomendación</span>
+      </button>
+      <button mat-button routerLink="/CompraBoletos" routerLinkActive="active-link">
+        <mat-icon>shopping_cart</mat-icon>
+        <span class="nav-text">Compra Boletos</span>
+      </button>
+      <button mat-button routerLink="/correo" routerLinkActive="active-link">
+        <mat-icon>email</mat-icon>
+        <span class="nav-text">Feedback Email</span>
+      </button>
+      <button mat-button routerLink="/website" routerLinkActive="active-link">
+        <mat-icon>web</mat-icon>
+        <span class="nav-text">Usabilidad Web</span>
+      </button>
+      <button mat-button routerLink="/staff" routerLinkActive="active-link">
+        <mat-icon>person</mat-icon>
+        <span class="nav-text">Atención al Cliente</span>
+      </button>
+      <button mat-button routerLink="/admin/estadisticas" routerLinkActive="active-link">
+        <mat-icon>bar_chart</mat-icon>
+        <span class="nav-text">Estadísticas</span>
+      </button>
+    </nav>
+  </header>
+  <main class="app-content">
+    <router-outlet></router-outlet>
+  </main>
 </div>

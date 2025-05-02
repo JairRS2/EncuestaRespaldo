@@ -1,10 +1,10 @@
-/* Estilos base y del contenedor principal */
+/* Estilos base del contenedor principal */
 .survey-container {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-
+  padding: 20px;
   background-color: #e3f2fd; /* Fondo azul claro */
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
@@ -13,7 +13,7 @@
   background: white;
   border-radius: 16px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  padding: 10px;
+  padding: 30px;
   width: 100%;
   max-width: 600px;
 }
@@ -32,7 +32,7 @@
   color: #546e7a;
   text-align: center;
   margin-bottom: 30px;
-  font-size: 1.1rem; /* Unificando tamaño para subtitle y ajustando description */
+  font-size: 1.1rem;
 }
 
 .survey-description {
@@ -56,10 +56,11 @@
   text-align: center; /* Asegura que el label esté centrado */
 }
 
-/* Estilos para las opciones de calificación (horizontal) */
+/* Estilos para las opciones de calificación (horizontal invertida) */
 .rating-options-horizontal {
   display: flex;
-  justify-content: center; /* Centra las opciones horizontalmente */
+  justify-content: flex-end; /* Alinea los elementos al final del contenedor */
+  flex-direction: row-reverse; /* Invierte el flujo de los elementos */
   gap: 10px; /* Espacio entre opciones */
   margin-top: 15px;
   flex-wrap: wrap; /* Para responsive */
@@ -88,21 +89,49 @@
   flex-direction: column;
   align-items: center;
   cursor: pointer;
-  height: 100%;
-  font-weight: 600; /* Estilo al seleccionar, movido aquí desde el hover del input */
 }
 
-/* Colores de semaforización para rating */
-.option-5 { background-color: #ffcdd2; border-color: #f86363; } /* Muy difícil */
-.option-4 { background-color: #fcc662f6; border-color: #ff9318; } /* Difícil */
-.option-3 { background-color: #fff9c4; border-color: #f5de10; } /* Regular */
-.option-2 { background-color: #c8e6c9; border-color: #a5d6a7; } /* Fácil */
-.option-1 { background-color: #81c784; border-color: #66bb6a; } /* Muy fácil */
-
-/* Efectos hover para rating */
 .rating-option-horizontal:hover {
   transform: translateY(-3px);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.emoji {
+  font-size: 2rem;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.rating-label {
+  font-size: 0.85rem;
+  color: #000;
+  display: block;
+}
+
+/* Colores de semaforización (manteniendo el orden original de significado) */
+.option-1 {
+  background-color: #81c784; /* Verde fuerte - Definitivamente sí */
+  border-color: #66bb6a;
+}
+
+.option-2 {
+  background-color: #c8e6c9; /* Verde claro - Probablemente sí */
+  border-color: #a5d6a7;
+}
+
+.option-3 {
+  background-color: #fff9c4; /* Amarillo - No estoy seguro */
+  border-color: #f5de10;
+}
+
+.option-4 {
+  background-color: #fcc662f6;
+  border-color: #ff9318;
+}
+
+.option-5 {
+  background-color: #ffcdd2; /* Rojo - Definitivamente no */
+  border-color: #f86363;
 }
 
 /* Estilos específicos para las opciones de plataforma */
@@ -129,7 +158,7 @@
   padding: 8px 12px; /* Ajustar el padding para más espacio interno */
   border-radius: 8px;
   background-color: #f5f9ff;
-  border: 2px solid transparent;
+  border: 2px solid transparent; /* Añadido para evitar cambios de layout al hacer hover o seleccionar */
   transition: all 0.3s ease;
   white-space: nowrap; /* Evitar que el texto se corte */
 }
@@ -194,6 +223,14 @@
   color: white !important;
 }
 
+/* Estilos para el icono de emoji */
+.emoji-icon {
+  width: 60px; /* Ajusta el tamaño según necesites */
+  height: 60px; /* Ajusta el tamaño según necesites */
+  vertical-align: middle; /* Alinea verticalmente con el texto si es necesario */
+  margin-right: 5px; /* Agrega un poco de espacio a la derecha del icono */
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .survey-card {
@@ -237,29 +274,26 @@
     font-size: 1.5rem; /* Reducimos un poco más el título */
   }
 
-  .rating-option-horizontal{ /* Apuntamos al label que contiene el icono y el texto */
-    gap: 5px; /* Reducimos el espacio entre el icono y el texto */
+  .rating-options-horizontal { /* Apuntamos al contenedor de las opciones */
+    gap: 5px; /* Reducimos el espacio entre las opciones */
   }
 
-  .emoji-icon {
-    max-height: 40px; /* Reducimos el tamaño del icono */
-    max-width: 40px;
-
+  .emoji {
+    font-size: 1.5rem; /* Reducimos el tamaño del emoji */
+    margin-bottom: 3px;
   }
 
-  .rating-option-horizontal  span.rating-label { /* Apuntamos directamente al span dentro del label */
+  .rating-label { /* Apuntamos directamente a la etiqueta de texto */
     font-size: 0.5rem;
     font-weight: bold;
-
   }
 
   .company-logo {
     max-height: 55px; /* Reducimos también el logo */
   }
-}
-.emoji-icon {
-  width: 60px; /* Ajusta el tamaño según necesites */
-  height: 60px; /* Ajusta el tamaño según necesites */
-  vertical-align: middle; /* Alinea verticalmente con el texto si es necesario */
-  margin-right: 5px; /* Agrega un poco de espacio a la derecha del icono */
+
+  .emoji-icon {
+    width: 40px; /* Reducimos el tamaño del icono */
+    height: 40px;
+  }
 }

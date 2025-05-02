@@ -2,3 +2,17 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.swal-title-elegante {
+  color: #ffffff; /* Un tono de azul elegante */
+  font-size: 2rem; /* Tamaño de fuente más grande */
+  font-weight: 500; /* Un peso de fuente más ligero */
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); /* Un sutil efecto de sombra */
+  margin-bottom: 15px; /* Más espacio debajo del título */
+}
+
+.swal-popup-elegante {
+  border-radius: 12px; /* Bordes más redondeados */
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15); /* Una sombra más pronunciada */
+  padding: 20px; /* Más espacio interno */
+  background: linear-gradient(135deg, #3f51b5 0%, #2196F3 100%); /* Un fondo sutilmente diferente (opcional) */
+}

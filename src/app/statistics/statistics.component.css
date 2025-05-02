@@ -109,4 +109,395 @@ canvas {
   canvas {
     max-height: 400px !important;
   }
+  .stats-summary {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 3.5rem;
+    font-size: 0.55rem;
+    color: #64748b;
+  }
+}
+/* ... tus estilos CSS existentes ... */
+
+h2 button {
+  margin-top: 1rem; /* Añade un margen superior para separarlos del título en pantallas pequeñas */
+  margin-right: 0.5rem; /* Espacio entre los botones */
+  font-size: 0.9rem; /* Reduce el tamaño de la fuente para pantallas más pequeñas */
+}
+
+h2 .update-button {
+  background-color: #ffc107; /* Color amarillo/ámbar para actualizar */
+  color: #212529; /* Texto oscuro para mejor contraste */
+}
+
+h2 .download-button {
+  background-color: #007bff; /* Color azul primario para descargar PDF */
+  color: white;
+}
+
+h2 .download-excel-button {
+  background-color: #28a745; /* Color verde para descargar Excel */
+  color: white;
+}
+
+h2 mat-icon {
+  margin-right: 0.5rem;
+  vertical-align: middle; /* Alinea el icono verticalmente con el texto */
+}
+
+h2 .button-text {
+  vertical-align: middle;
+}
+
+/* Estilos responsive para los botones */
+@media (max-width: 768px) {
+  h2 {
+    display: flex;
+    flex-direction: column; /* Apila los botones en pantallas pequeñas */
+    align-items: center; /* Centra los botones */
+  }
+
+  h2 button {
+    width: 90%; /* Ocupa un ancho mayor en pantallas pequeñas */
+    margin: 0.5rem 0; /* Espaciado vertical entre botones */
+    font-size: 1rem; /* Aumenta ligeramente el tamaño de la fuente para mejor legibilidad */
+  }
+
+  h2 mat-icon {
+    margin-right: 0.8rem;
+    font-size: 1.2rem;
+  }
+  .stats-summary {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 3.5rem;
+    font-size: 0.55rem;
+    color: #64748b;
+  }
+}
+
+@media (min-width: 769px) {
+  h2 button {
+    margin-left: 1rem; /* Restaura el margen izquierdo en pantallas más grandes */
+  }
+  .stats-summary {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 3.5rem;
+    font-size: 0.55rem;
+    color: #64748b;
+  }
+}
+.dashboard-container {
+  padding: 20px;
+  max-width: 1800px;
+  margin: 0 auto;
+}
+
+h2 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  color: #1e3a8a;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.update-button, .download-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.chart-section {
+  margin-bottom: 3rem;
+  background: #f8fafc;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.section-title {
+  color: #1e3a8a;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.chart-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+  gap: 1.5rem;
+}
+
+.chart-card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  transition: transform 0.2s;
+}
+
+.chart-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.chart-card.full-width {
+  grid-column: 1 / -1;
+}
+
+h4 {
+  color: #1e40af;
+  margin-bottom: 0.75rem;
+  font-size: 1.1rem;
+}
+
+.most-voted {
+  color: #4b5563;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+
+.stats-summary {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+  font-size: 0.55rem;
+  color: #64748b;
+}
+
+.loading-spinner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 300px;
+}
+
+@media (max-width: 768px) {
+  .chart-grid {
+    grid-template-columns: 1fr;
+  }
+
+  h2 {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .stats-summary {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 3.5rem;
+    font-size: 0.55rem;
+    color: #64748b;
+  }
+}
+/* statistics.component.css */
+
+.chart-card {
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.chart-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.chart-card.expanded {
+  z-index: 100;
+}
+
+.chart-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.modal-content {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  max-width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  width: 800px;
+}
+
+.close-button {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #64748b;
+}
+
+.expanded-chart-container {
+  width: 100%;
+  height: 500px;
+}
+
+.chart-container {
+  width: 100%;
+  height: 250px;
+}
+
+/* Asegúrate que los canvas se redimensionen */
+canvas {
+  width: 100% !important;
+  height: auto !important;
+}
+.main-title {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 1.8rem;
+  color: #333;
+}
+/* Estilos para el modal y gráficas expandidas */
+.chart-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.modal-content {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  max-width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  width: 800px;
+}
+
+.close-button {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #64748b;
+}
+
+.expanded-chart-container {
+  width: 100%;
+  height: 500px;
+}
+
+.chart-container {
+  width: 100%;
+  height: 250px;
+}
+
+/* Asegurar que los canvas se redimensionen */
+canvas {
+  width: 100% !important;
+  height: auto !important;
+}
+
+/* Efecto hover para las tarjetas */
+.chart-card {
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.chart-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+/* Estilos específicos para pantallas muy pequeñas (celulares) */
+@media (max-width: 480px) {
+  .dashboard-container {
+      padding: 1rem;
+  }
+
+  h2 {
+      font-size: 1.75rem;
+      margin-bottom: 1.5rem;
+  }
+
+  .charts-container {
+      grid-template-columns: 1fr; /* Aseguramos una sola columna */
+      gap: 0.75rem;
+  }
+
+  .chart-card {
+      padding: 0.75rem;
+      border-radius: 8px;
+  }
+
+  canvas {
+      max-height: 200px; /* Reducimos aún más la altura */
+  }
+
+  .chart-card h4 {
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+  }
+
+  .stats-summary {
+      font-size: 0.95rem;
+      margin-top: .1rem;
+  }
+
+  .stats-summary p {
+      padding: 0.5rem;
+      font-size: 0.7rem;
+  }
+
+  h2 button {
+      font-size: 0.9rem;
+      padding: 0.6rem;
+  }
+
+  h2 mat-icon {
+      font-size: 1.1rem;
+      margin-right: 0.3rem;
+  }
+
+  .section-title {
+      font-size: 1.1rem;
+      margin-bottom: 0.75rem;
+  }
+
+  .most-voted {
+      font-size: 0.8rem;
+      margin-bottom: 0.5rem;
+  }
+
+  .chart-modal .modal-content {
+      padding: 20px;
+  }
+
+  .expanded-chart-container {
+      height: 300px; /* Reducimos la altura del gráfico expandido */
+  }
+
+  .chart-container {
+      height: 200px; /* Reducimos la altura del gráfico normal */
+  }
 }
