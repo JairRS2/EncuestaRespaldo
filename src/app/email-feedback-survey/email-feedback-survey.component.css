@@ -1,21 +1,21 @@
-/* Estilos base del contenedor principal */
 .survey-container {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  padding: 20px;
+  justify-content: center; /* Centra horizontalmente */
+  /* Eliminamos align-items: center; para que no centre verticalmente */
+  /* Eliminamos min-height: 100vh; para que el contenedor se ajuste al contenido */
   background-color: #e3f2fd; /* Fondo azul claro */
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding-top: 20px; /* Agregamos un poco de espacio superior si es necesario */
+  min-height: 86vh;
 }
 
 .survey-card {
   background: white;
   border-radius: 16px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  padding: 30px;
+  padding: 100px;
   width: 100%;
-  max-width: 600px;
+  max-width: 1000px;
 }
 
 /* Títulos y descripciones */
@@ -32,7 +32,7 @@
   color: #546e7a;
   text-align: center;
   margin-bottom: 30px;
-  font-size: 1.1rem;
+  font-size: 1.1rem; /* Unificando tamaño para subtitle y ajustando description */
 }
 
 .survey-description {
@@ -49,18 +49,17 @@
 .question-container label,
 .question-label { /* Unificando selector para la etiqueta de pregunta */
   display: block;
-  font-size: 1.1rem;
+  font-size: 1.4rem;
   margin-bottom: 20px;
   color: #37474f;
   font-weight: 500;
   text-align: center; /* Asegura que el label esté centrado */
 }
 
-/* Estilos para las opciones de calificación (horizontal invertida) */
+/* Estilos para las opciones de calificación (horizontal) */
 .rating-options-horizontal {
   display: flex;
-  justify-content: flex-end; /* Alinea los elementos al final del contenedor */
-  flex-direction: row-reverse; /* Invierte el flujo de los elementos */
+  justify-content: center; /* Centra las opciones horizontalmente */
   gap: 10px; /* Espacio entre opciones */
   margin-top: 15px;
   flex-wrap: wrap; /* Para responsive */
@@ -89,23 +88,8 @@
   flex-direction: column;
   align-items: center;
   cursor: pointer;
-}
-
-.rating-option-horizontal:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.emoji {
-  font-size: 2rem;
-  margin-bottom: 5px;
-  display: block;
-}
-
-.rating-label {
-  font-size: 0.85rem;
-  color: #000;
-  display: block;
+  height: 100%;
+  font-weight: 600; /* Estilo al seleccionar, movido aquí desde el hover del input */
 }
 
 /* Colores de semaforización (manteniendo el orden original de significado) */

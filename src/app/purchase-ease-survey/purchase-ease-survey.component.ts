@@ -53,7 +53,7 @@ export class PurchaseEaseSurveyComponent {
     const option = this.easeOptions.find(opt => opt.value === value);
     return option ? option.colorValue.toString() : '0';
   }
-
+ // Función para obtener el valor de color basado en la opción
   onEaseChange(value: string) {
     this.selectedEase = value;
     this.attemptSubmit();
@@ -63,7 +63,7 @@ export class PurchaseEaseSurveyComponent {
     this.selectedPlatform = value;
     this.attemptSubmit();
   }
-
+//metodo para enviar la respuesta del cliente
   attemptSubmit() {
     if (this.selectedEase && this.selectedPlatform) {
       this.submitResponse();
@@ -77,7 +77,7 @@ export class PurchaseEaseSurveyComponent {
       timestamp: new Date().toISOString()
     };
 
-    this.http.post('https://cd68-2806-10a6-6-5d2-7d80-bdf4-8119-725c.ngrok-free.app/api/submit-purchase-ease', requestData)
+    this.http.post('https://7bd7-2806-10a6-24-8f9a-7d80-bdf4-8119-725c.ngrok-free.app/api/submit-purchase-ease', requestData)
       .subscribe({
         next: () => {
        Swal.fire({

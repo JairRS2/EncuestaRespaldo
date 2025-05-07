@@ -198,7 +198,7 @@ export class StatisticsComponent implements OnInit {
 
   loadStatistics(): void {
     const headers = new HttpHeaders().set('ngrok-skip-browser-warning', 'true');
-    this.http.get('https://cd68-2806-10a6-6-5d2-7d80-bdf4-8119-725c.ngrok-free.app/api/statistics', { headers }).subscribe({
+    this.http.get('https://7bd7-2806-10a6-24-8f9a-7d80-bdf4-8119-725c.ngrok-free.app/api/statistics', { headers }).subscribe({
       next: (response: any) => {
         this.stats = response.data;
         this.prepareChartData(response.data);

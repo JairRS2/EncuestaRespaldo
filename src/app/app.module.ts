@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, isDevMode } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -20,7 +20,8 @@ import { RecommendationSurveyComponent } from './recommendation-survey/recommend
 import { PurchaseEaseSurveyComponent } from './purchase-ease-survey/purchase-ease-survey.component';
 import { EmailFeedbackSurveyComponent } from './email-feedback-survey/email-feedback-survey.component';
 import { WebsiteUsabilitySurveyComponent } from './website-usability-survey/website-usability-survey.component';
-import { StaffCourtesySurveyComponent } from './staff-courtesy-survey/staff-courtesy-survey.component'; // <-- Añade esto
+import { StaffCourtesySurveyComponent } from './staff-courtesy-survey/staff-courtesy-survey.component';
+import { ServiceWorkerModule } from '@angular/service-worker'; // <-- Añade esto
 @NgModule({
   declarations: [
     AppComponent,
@@ -47,7 +48,13 @@ import { StaffCourtesySurveyComponent } from './staff-courtesy-survey/staff-cour
     NgChartsModule,
     RouterModule,
     MatProgressSpinnerModule,
-    AppRoutingModule // <-- Añade esto
+    AppRoutingModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: !isDevMode(),
+      // Register the ServiceWorker as soon as the application is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    }) // <-- Añade esto
   ],
   providers: [],
   bootstrap: [AppComponent]

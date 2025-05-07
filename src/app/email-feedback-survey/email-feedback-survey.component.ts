@@ -23,7 +23,7 @@ export class EmailFeedbackSurveyComponent {
     { value: 'neutral', label: 'Neutral', icon: '/assets/Neutral.png', colorValue: 3 },
     { value: 'satisfecho', label: 'Satisfecho', icon: '/assets/Feliz.png', colorValue: 2 },
     { value: 'muy-satisfecho', label: 'Muy Satisfecho', icon: '/assets/Muy_Feliz.png', colorValue: 1 }
-  ].reverse();
+  ];
   selectedResponse1: string = '';
 
   question2 = '¿Con qué frecuencia encuentra útil la información que le enviamos por correo electrónico?';
@@ -33,7 +33,7 @@ export class EmailFeedbackSurveyComponent {
     { value: 'a-veces', label: 'A veces', icon: '/assets/Neutral.png', colorValue: 3 },
     { value: 'a-menudo', label: 'A menudo', icon: '/assets/Feliz.png', colorValue: 2 },
     { value: 'siempre', label: 'Siempre', icon: '/assets/Muy_Feliz.png', colorValue: 1 }
-  ].reverse();
+  ];
   selectedResponse2: string = '';
 
   errorMessage = '';
@@ -43,17 +43,17 @@ export class EmailFeedbackSurveyComponent {
     private http: HttpClient,
     private snackBar: MatSnackBar
   ) { }
-
+//Metodo para obtener el valor de color basado en la opción
   onOptionSelect1(value: string) {
     this.selectedResponse1 = value;
     this.trySubmitResponses();
   }
-
+//metodo para obtener el valor de color basado en la opción
   onOptionSelect2(value: string) {
     this.selectedResponse2 = value;
     this.trySubmitResponses();
   }
-
+//Metodo para enviar las respuestas del cliente
   trySubmitResponses() {
     if (this.selectedResponse1 && this.selectedResponse2) {
       this.submitResponses();
@@ -72,7 +72,7 @@ export class EmailFeedbackSurveyComponent {
       timestamp: new Date().toISOString()
     };
 
-    this.http.post('https://cd68-2806-10a6-6-5d2-7d80-bdf4-8119-725c.ngrok-free.app/api/submit-email-feedback', requestData)
+    this.http.post('https://7bd7-2806-10a6-24-8f9a-7d80-bdf4-8119-725c.ngrok-free.app/api/submit-email-feedback', requestData)
       .subscribe({
         next: () => {
        Swal.fire({

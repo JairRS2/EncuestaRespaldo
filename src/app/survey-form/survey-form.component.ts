@@ -43,17 +43,17 @@ export class SurveyFormComponent {
     private http: HttpClient,
     private snackBar: MatSnackBar
   ) { }
-
+//Metodo para obtener el valor de color basado en la opción
   onOptionSelect1(value: string) {
     this.selectedResponse1 = value;
     this.trySubmitResponses();
   }
-
+//metodo para obtener el valor de color basado en la opción
   onOptionSelect2(value: string) {
     this.selectedResponse2 = value;
     this.trySubmitResponses();
   }
-
+//Metodo para enviar las respuestas del cliente
   trySubmitResponses() {
     if (this.selectedResponse1 && this.selectedResponse2) {
       this.submitResponses();
@@ -72,7 +72,7 @@ export class SurveyFormComponent {
       timestamp: new Date().toISOString()
     };
 
-    this.http.post('https://cd68-2806-10a6-6-5d2-7d80-bdf4-8119-725c.ngrok-free.app/api/submit-survey', requestData)
+    this.http.post('https://7bd7-2806-10a6-24-8f9a-7d80-bdf4-8119-725c.ngrok-free.app/api/submit-survey', requestData)
       .subscribe({
         next: () => {
           Swal.fire({

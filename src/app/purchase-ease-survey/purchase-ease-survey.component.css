@@ -1,21 +1,21 @@
-/* Estilos base y del contenedor principal */
 .survey-container {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-
+  justify-content: center; /* Centra horizontalmente */
+  /* Eliminamos align-items: center; para que no centre verticalmente */
+  /* Eliminamos min-height: 100vh; para que el contenedor se ajuste al contenido */
   background-color: #e3f2fd; /* Fondo azul claro */
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding-top: 20px; /* Agregamos un poco de espacio superior si es necesario */
+  min-height: 86vh;
 }
 
 .survey-card {
   background: white;
   border-radius: 16px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  padding: 10px;
-  width: 100%;
-  max-width: 600px;
+  padding: 100px;
+  width: 110%;
+  max-width: 1000px;
 }
 
 /* Títulos y descripciones */
@@ -49,7 +49,7 @@
 .question-container label,
 .question-label { /* Unificando selector para la etiqueta de pregunta */
   display: block;
-  font-size: 1.1rem;
+  font-size: 1.4rem;
   margin-bottom: 20px;
   color: #37474f;
   font-weight: 500;
@@ -145,7 +145,7 @@
 }
 
 .platform-icon {
-  height: 2rem; /* Ajusta el tamaño del icono */
+  height: 4rem; /* Ajusta el tamaño del icono */
   width: auto;
   margin-right: 8px; /* Espacio entre el icono y el texto */
   color: #1976d2; /* Color del icono */
@@ -214,7 +214,7 @@
   }
 
   .platform-icon {
-    height: 1.8rem;
+    height: 2.6rem;
     margin-right: 6px;
   }
 
